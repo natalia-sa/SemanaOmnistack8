@@ -1,0 +1,8 @@
+{
+  "name": "semanaOmnistack8",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/natalia-sa/SemanaOmnistack8.git",
+  "author": "natalia-sa <natalia.andre@ccc.ufcg.edu.br>",
+  "license": "MIT"
+}
