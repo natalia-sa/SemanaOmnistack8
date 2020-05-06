@@ -1,10 +1,9 @@
-// o controller sera apenas um objeto que pode ser exportado
-// a api do github é publica e tem um objeto json do usuario com os dados dele
 // axios : pacote para fazer requisições em apis externas
 // no mvc o controller nao pode ter mais que os cinco metodos fundamentais, se vai fazer um metodo que fuja disso deve-se fazer um novo controller
-// yarn add cors para acessar a app de qualquer lugar, qualquer endereço
+// yarn add cors para acessar a app de qualquer endereço
+
 const axios = require('axios');
-// para armazenar as informações no banco de dados
+
 const Dev = require('../models/Dev');
 
 module.exports = {
@@ -24,6 +23,7 @@ module.exports = {
     },
 
     async store(req, res) {
+        // utilizando desestruturaçao
         const { username } = req.body;
 
         const userExists = await Dev.findOne({user:username});
@@ -31,17 +31,18 @@ module.exports = {
         if (userExists){
             return res.json(userExists);
         }
-        // o axios.get é um metodo assincrono, ele demora para executar
+        // o axios.get é um metodo assincrono
         const response = await axios.get(`https://api.github.com/users/` + username);
+
         const { name, bio, avatar_url } = response.data;
+        
         const dev = await Dev.create({
             name,
             user: username,
             bio,
             avatar: avatar_url
         });
-        // utilizando desestruturaçao
-        
+
         return res.json(dev);
     }
 };

@@ -4,13 +4,14 @@
     justify-content: center;
     align-items: center;
 }
-/* para deixar responsivo*/
+
 .login-container form {
     width: 100%;
     max-width: 300px;
     display: flex;
     flex-direction: column;
 }
+
 .login-container form input {
     margin-top: 20px;
     border: 1px solid #ddd;
@@ -20,9 +21,11 @@
     font-size: 16px;
     color: #666;
 }
-.login-container form input::placeholder{
+
+.login-container form input::placeholder {
     color: #999;
 }
+
 .login-container form button {
     margin-top: 10px;
     border: 0;
