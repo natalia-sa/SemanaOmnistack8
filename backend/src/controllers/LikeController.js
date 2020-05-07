@@ -6,10 +6,13 @@
 
 // no header da aplicação se mandam informações que nao tem tanto a ver com a funcionalidade feita, para simbolizar a autenticação
 
+// match: backend avisando algo pro frontend - WebSocket
 const Dev = require('../models/Dev');
 
 module.exports = {
     async store(req, res){
+
+
         
         const { devId } = req.params;
         const { user } = req.headers;
@@ -23,7 +26,15 @@ module.exports = {
         }
 
         if(targetDev.likes.includes(loggedDev._id)){
-            console.log('deu match');
+            const loggedSocket = req.connectedUsers[user];
+            const targetSocket = req.connectedUsers[devId];
+
+            if (loggedSocket){
+                req.io.to(loggedSocket).emit('match', targetDev);
+            }
+            if (targetSocket){
+                req.io.to(targetSocket).emit('match', loggedSocket);
+            }
         }
         
         loggedDev.likes.push(targetDev._id);
